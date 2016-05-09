@@ -56,7 +56,7 @@ class ListsController < ApplicationController
   # DELETE /lists/1
   # DELETE /lists/1.json
   def destroy
-  
+  @list.destroy
     respond_to do |format|
       format.html { redirect_to lists_url}
       format.json { head :no_content }

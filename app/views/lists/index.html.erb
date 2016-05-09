@@ -20,11 +20,15 @@
           <td><strike><%= list.description %></strike></td>
           <td><%= link_to 'Edit', edit_list_path(list) %></td>
           <td><%= link_to 'Mark as incomplete', list_path(list, list: { completed: "0" }), method: :put %></td>
+          <td><%= link_to 'Delete', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
         <% else %>
           <td><%= list.item %></td>
           <td><%= list.description %></td>
           <td><%= link_to 'Edit', edit_list_path(list) %></td>
           <td><%= link_to 'Mark as complete', list_path(list, list: { completed: "1" }), method: :put %></td>
+          <td><%= link_to 'Delete', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
         <% end %>
 
         

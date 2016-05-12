@@ -1,45 +1,21 @@
 <p id="notice"><%= notice %></p>
-
-<h1>All Todo Items</h1>
+<h1>All Todo Lists</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<h3>
+List Name
+</h3>
   <tbody>
     <% @lists.each do |list| %>
       <tr>
-         <% if list.completed? %>
-
-          <td><strike><%= list.item %></strike></td>
-          <td><strike><%= list.description %></strike></td>
+          <td><%= link_to list.name, list %></td>
           <td><%= link_to 'Edit', edit_list_path(list) %></td>
-          <td><%= link_to 'Mark as incomplete', list_path(list, list: { completed: "0" }), method: :put %></td>
           <td><%= link_to 'Delete', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
-        <% else %>
-          <td><%= list.item %></td>
-          <td><%= list.description %></td>
-          <td><%= link_to 'Edit', edit_list_path(list) %></td>
-          <td><%= link_to 'Mark as complete', list_path(list, list: { completed: "1" }), method: :put %></td>
-          <td><%= link_to 'Delete', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
         <% end %>
-
-        
       </tr>
-     
-    
-<% end %>
-
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Item', new_list_path %>
+<%= link_to 'New List', new_list_path %>

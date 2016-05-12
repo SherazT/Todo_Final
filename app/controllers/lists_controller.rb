@@ -45,7 +45,7 @@ class ListsController < ApplicationController
     respond_to do |format|
       if @list.update(list_params)
         format.html { redirect_to lists_url}
-        format.json { render :show, status: :ok, location: @list }
+        format.json { render :show, status: :ok, location: lists_url }
       else
         format.html { render :edit }
         format.json { render json: @list.errors, status: :unprocessable_entity }
@@ -78,6 +78,6 @@ class ListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.require(:list).permit(:item, :description, :completed)
+      params.require(:list).permit(:name)
     end
 end

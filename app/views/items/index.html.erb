@@ -3,21 +3,21 @@
 <h1>All Items</h1>
 
 <table>
-<h3>Task Description</h3>
+<h3>task Description</h3>
   <tbody>
     <% @items.each do |item| %>
       <tr>
       	<% if item.completed? %>
-          <td><strike><%= item.Task %><strike></td>
+          <td><strike><%= item.task %><strike></td>
           <td><strike><%= item.description %><strike></td>
-          <td><%= link_to 'Mark as incomplete', item_path(item, item: { completed: "0" }), method: :put %></td>
+          <td><%= link_to 'Mark as incomplete', list_path(item, item: { completed: "0" }), method: :put %></td>
           <% else %>
-          <td><%= item.Task %></td>
+          <td><%= item.task %></td>
           <td><%= item.description %></td>
-          <td><%= link_to 'Mark as complete', item_path(item, item: { completed: "1" }), method: :put %></td>
+          <td><%= link_to 'Mark as complete', list_path(item, item: { completed: "1" }), method: :put %></td>
           <% end %>
-          <td><%= link_to 'Edit', edit_item_path(item) %></td>
-          <td><%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Edit', edit_list_item_path(item, item.list.id) %></td>
+          <td><%= link_to 'Delete', list_item_path(:id, :list_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
   </tbody>
@@ -26,4 +26,4 @@
 <br>
 
 
-<%= link_to 'New Task', new_item_path %>
+<%= link_to 'New task', new_list_item_path %>

@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
   # GET /items.json
@@ -14,23 +13,22 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-    @list = List.find(params[:list_id])
-    @item = @list.items.build
+    @item = list.items.build
   end 
 
   # GET /items/1/edit
   def edit
+    item
   end
 
   # POST /items
   # POST /items.json
   def create
-    @list = List.find(params[:list_id])
-    @item = @list.items.build(item_params)
+    @item = list.items.build(item_params)
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @list }
+        format.html { redirect_to list_path @list }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -45,12 +43,12 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to items_url}
+      if item.update(item_params)
+        format.html { redirect_to list_path(@list)}
         format.json { render :show, status: :ok, location: items_url }
       else
         format.html { render :edit }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.json { render json: item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,28 +56,31 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-  @item.destroy
+    item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url}
+      format.html { redirect_to @list}
       format.json { head :no_content }
     end
   end
 
   def complete
-      respond_to do |format|
-        format.html { redirect_to items_url}
-  end
-    
+    respond_to do |format|
+      format.html { redirect_to @list}
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white item through.
-    def item_params
-      params.require(:item).permit(:name, :description, :completed, :list_id)
-    end
+  def list
+    @list ||= List.find(params[:list_id])
+  end
+  
+  def item
+    @item ||= list.items.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white item through.
+  def item_params
+    params.require(:item).permit(:task, :description, :completed, :list_id)
+  end
 end

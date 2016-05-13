@@ -1,26 +1,32 @@
-<p id="notice"><%= notice %></p>
 
+<p id="notice"><%= notice %></p>
+<h1>All Items</h1>
 
 <table>
-<h3>
-task Name
-</h3>
+<h3>Task Description</h3>
   <tbody>
     <% @list.items.each do |item| %>
       <tr>
+        <% if item.completed? %>
+          <td><strike><%= item.task %><strike></td>
+          <td><strike><%= item.description %><strike></td>
+          <td><%= link_to 'Mark as incomplete', list_item_path(@list, item, item: { completed: "0" }), method: :put %></td>
+        <% else %>
           <td><%= item.task %></td>
           <td><%= item.description %></td>
-          <td><%= link_to 'Edit', edit_list_item_path(item, item.list) %></td>
-          <td><%= link_to 'Delete', list_item_path(item, item.list), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Mark as complete', list_item_path(@list, item, item: { completed: "1" }), method: :put %></td>
+          <% end %>
+          <td><%= link_to 'Edit', edit_list_item_path(@list, item) %></td>
+          <td><%= link_to 'Delete', list_item_path(@list,item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
         <% end %>
-      </tr>
   </tbody>
 </table>
 
 <br>
-<%= link_to 'New Item', new_list_item_path(@list) %>
+
+
+<%= link_to 'New Task', new_list_item_path(@list) %>
+
 <br>
 <%= link_to "Back To All Lists", lists_path %>
-
-
-

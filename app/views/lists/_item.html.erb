@@ -1,11 +1,4 @@
 
-<p id="notice"><%= notice %></p>
-<h1>All Items</h1>
-
-<table>
-<h3>task Description</h3>
-  <tbody>
-    <% @items.each do |item| %>
       <tr>
       	<% if item.completed? %>
           <td><strike><%= item.task %><strike></td>
@@ -18,12 +11,4 @@
           <% end %>
           <td><%= link_to 'Edit', edit_list_item_path(@list) %></td>
           <td><%= link_to 'Delete', list_item_path(:id, :list_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-  </tbody>
-</table>
-
-<br>
-
-
-<%= link_to 'New task', new_list_item_path %>
+        </tr>
